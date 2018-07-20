@@ -13,22 +13,31 @@ body{
     height: 100vh;
     align-items: center;
 }
+.center{
+	text-align:center;
+}
 		</style>
 	</head>
 	<body>
-		<h1 id="countdown"></h1>
+		<div class="center">
+			<h1 id="countdown"></h1>
+			<label id="label"></label>
+		</div>
 		<form method="GET" action="">
 			<input name="to" type="datetime-local" />
+			<input name="label" type="text /">
 			<button type="submit">gerar</button>
 		</form>
 		<script type="text/javascript">
-var div = document.getElementById("countdown");
+var countdown = document.getElementById("countdown");
+var label = document.getElementById("label");
 var search = location.search.substring(1);
 var params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
 if(params.to){
+	label.innerHTML = params.label.replace(/\+/g," ");
 	setInterval(function(){
 		var duration  = moment.duration(moment(params.to.replace("%3A",":")).diff());
-		div.innerHTML = 
+		countdown.innerHTML = 
 			duration.years()+" anos "+
 			duration.months()+" meses "+
 			duration.days()+" dias "+
