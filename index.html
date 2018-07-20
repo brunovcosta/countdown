@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Countdown</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/pt-br.js"></script>
+		<style type="text/css" media="screen">
+body{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+		</style>
+	</head>
+	<body>
+		<h1 id="countdown"></h1>
+		<form method="GET" action="">
+			<input name="to" type="datetime-local" />
+			<button type="submit">gerar</button>
+		</form>
+		<script type="text/javascript">
+var div = document.getElementById("countdown");
+var search = location.search.substring(1);
+var params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+if(params.to){
+	setInterval(function(){
+		var duration  = moment.duration(moment(params.to.replace("%3A",":")).diff());
+		div.innerHTML = 
+			duration.years()+" anos "+
+			duration.months()+" meses "+
+			duration.days()+" dias "+
+			duration.hours() + " horas "+
+			duration.minutes() + " minutos "+
+			duration.seconds() + " segundos "+
+			duration.milliseconds() + " milisegundos ";
+	},1);
+	document.querySelector("form").remove();
+}
+		</script>
+	</body>
+</html>
